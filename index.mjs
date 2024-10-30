@@ -11,7 +11,7 @@ let client;
 
 app.use(express.json());
 app.use(cors({
-  origin: true // Allow only your frontend's origin
+  origin: process.env.ORIGIN // Allow only your frontend's origin
 }));
 
 async function handle_generate(req, res) {
