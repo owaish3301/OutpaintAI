@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Upload, Settings, Image as RefreshCw } from 'lucide-react';
 
+const imgbbApiKey = import.meta.env.VITE_BB_API;
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Dashboard = () => {
+  console.log(imgbbApiKey, ":", backendUrl)
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,8 +24,7 @@ const Dashboard = () => {
     overlap_top: true,
     overlap_bottom: true
   });
-  const imgbbApiKey = process.env.bb_api; // Replace with your ImgBB API key
-
+  
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     setImage(file)
@@ -52,7 +54,7 @@ const Dashboard = () => {
   const handleGenerate = async () => {
     try {
       setLoading(true);
-      const response = await fetch(process.env.backend_api_url, {
+      const response = await fetch(backendUrl, {
         method : 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +62,7 @@ const Dashboard = () => {
         body : JSON.stringify({imageUrl, ...settings})
       })
       const data = await response.json()
-      console.log(data);
+
       setGeneratedImage(data.result);
     } catch (error) {
       console.error("Generation failed:", error);
