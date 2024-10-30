@@ -20,7 +20,7 @@ async function handle_generate(req, res) {
       console.error("HF_TOKEN is missing.");
       return;
     }
-    client = await Client.connect("fffiloni/diffusers-image-outpaint", { hf_token: process.env.HF_TOKEN });
+    client = await Client.connect("multimodalart/flux-outpainting", { hf_token: process.env.HF_TOKEN });
     console.log('Gradio client connected');
   } catch (error) {
     console.error("Failed to connect to Gradio client:", error);
@@ -37,7 +37,7 @@ async function handle_generate(req, res) {
     const response = await fetch(imageUrl);
     const image = await response.blob();
 
-    const result = await client.predict("/infer", { 
+    const result = await client.predict("/inpaint", { 
       image: image,
       width: width,
       height: height,
