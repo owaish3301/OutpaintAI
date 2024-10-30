@@ -9,7 +9,12 @@ const port = process.env.PORT;
 const app = express();
 let client;
 
-(async () => {
+app.use(express.json());
+app.use(cors({
+  origin: true // Allow only your frontend's origin
+}));
+
+async function handle_generate(req, res) {
   try {
     if (!process.env.HF_TOKEN) {
       console.error("HF_TOKEN is missing.");
@@ -20,14 +25,6 @@ let client;
   } catch (error) {
     console.error("Failed to connect to Gradio client:", error);
   }
-})();
-
-app.use(express.json());
-app.use(cors({
-  origin: true // Allow only your frontend's origin
-}));
-
-async function handle_generate(req, res) {
   if (!client) {
     res.status(500).json({ message: "Gradio client not initialized" });
     return;
