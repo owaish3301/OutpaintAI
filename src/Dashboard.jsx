@@ -5,7 +5,6 @@ const imgbbApiKey = import.meta.env.VITE_BB_API;
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Dashboard = () => {
-  console.log(imgbbApiKey, ":", backendUrl)
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
   const [loading, setLoading] = useState(false);
